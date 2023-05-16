@@ -1,0 +1,9 @@
+2a60927148abd1d33b818b535e306557
+::res://::1684192041
+default_env.tres::Environment::3890434638498887423::1684191960::0::1::::<><>::
+grid_material.png::CompressedTexture2D::5685405827911183108::1684187636::1684187644::1::::<><>::
+HUDStatsMarginContainer.gd::GDScript::-1::1684188954::0::1::::<>MarginContainer<>::
+icon.png::CompressedTexture2D::6127133504762374083::1684187224::1684187362::1::::<><>::
+PlayerFPS.gd::GDScript::-1::1684191952::0::1::::<>CharacterBody3D<>::
+PlayerFPS.tscn::PackedScene::2126816699616201191::1684191960::0::1::::<><>::res://PlayerFPS.gd<>res://HUDStatsMarginContainer.gd
+World.tscn::PackedScene::3811713592437468322::1684191960::0::1::::<><>::uid://5kimirwnfoyh<>uid://cnab2kwm3nib1

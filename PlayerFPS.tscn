@@ -1,0 +1,210 @@
+[gd_scene load_steps=9 format=3 uid="uid://5kimirwnfoyh"]
+
+[ext_resource type="Script" path="res://PlayerFPS.gd" id="1"]
+[ext_resource type="Script" path="res://HUDStatsMarginContainer.gd" id="2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u6g7x"]
+albedo_color = Color(0, 0.431373, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_jib71"]
+material = SubResource("StandardMaterial3D_u6g7x")
+
+[sub_resource type="CapsuleShape3D" id="1"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_k1u31"]
+
+[sub_resource type="Sky" id="Sky_p0m6k"]
+sky_material = SubResource("ProceduralSkyMaterial_k1u31")
+
+[sub_resource type="Environment" id="Environment_4qqq8"]
+background_mode = 2
+sky = SubResource("Sky_p0m6k")
+
+[node name="PlayerFPS" type="CharacterBody3D"]
+script = ExtResource("1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 2
+mesh = SubResource("CapsuleMesh_jib71")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("1")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+cull_mask = 1048573
+environment = SubResource("Environment_4qqq8")
+current = true
+far = 1000.0
+
+[node name="HeadCheck" type="RayCast3D" parent="Head"]
+target_position = Vector3(0, 1, 0)
+
+[node name="HUD Stats" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD Stats"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+script = ExtResource("2")
+player = NodePath("../..")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD Stats/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD Stats/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Framerate" type="Label" parent="HUD Stats/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.784314, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Framerate"
+uppercase = true
+
+[node name="Velocity" type="Label" parent="HUD Stats/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.784314, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Velocity"
+uppercase = true
+
+[node name="Health" type="Label" parent="HUD Stats/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.784314, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Health"
+uppercase = true
+
+[node name="Control" type="Control" parent="HUD Stats/MarginContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD Stats/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -28.0
+offset_right = 10.0
+offset_bottom = 28.0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD Stats/MarginContainer/Control/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LabelLeft" type="Label" parent="HUD Stats/MarginContainer/Control/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "<"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HUD Stats/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.5
+offset_top = -28.0
+offset_right = 4.5
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HUD Stats/MarginContainer/Control/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LabelForward" type="Label" parent="HUD Stats/MarginContainer/Control/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "^"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HUD Stats/MarginContainer/Control/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+
+[node name="LabelBack" type="Label" parent="HUD Stats/MarginContainer/Control/HBoxContainer2/VBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+text = "v"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="HUD Stats/MarginContainer/Control"]
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -13.0
+offset_bottom = 13.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD Stats/MarginContainer/Control/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="HUD Stats/MarginContainer/Control/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LabelJump" type="Label" parent="HUD Stats/MarginContainer/Control/HBoxContainer3/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 11.0
+offset_bottom = 11.5
+grow_vertical = 2
+theme_override_constants/line_spacing = -1
+text = "J"
+
+[node name="Control2" type="Control" parent="HUD Stats/MarginContainer/Control/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LabelRight2" type="Label" parent="HUD Stats/MarginContainer/Control/HBoxContainer3/VBoxContainer/Control2"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 10.0
+offset_bottom = 11.5
+grow_vertical = 2
+theme_override_constants/line_spacing = -1
+text = ">"
+
+[node name="Control3" type="Control" parent="HUD Stats/MarginContainer/Control/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LabelCrouch" type="Label" parent="HUD Stats/MarginContainer/Control/HBoxContainer3/VBoxContainer/Control3"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 11.0
+offset_bottom = 11.5
+grow_vertical = 2
+theme_override_constants/line_spacing = -1
+text = "C"
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
